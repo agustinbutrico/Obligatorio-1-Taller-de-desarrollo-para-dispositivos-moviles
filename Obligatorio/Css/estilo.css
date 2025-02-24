@@ -1,0 +1,41 @@
+.hidden {
+    display: none;
+}
+
+
+.title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .subtitle,
+  .professor {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: normal;
+    color: #333;
+  }
+
+  .professor {
+    margin-top: 10px;
+  }
+  
+  .profile {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .profile ion-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin: auto;
+  }
+  
+  .name {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  

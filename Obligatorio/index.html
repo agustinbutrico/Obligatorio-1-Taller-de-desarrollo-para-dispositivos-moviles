@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="Media/favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@latest/css/ionic.bundle.css" />
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@latest/dist/ionic/ionic.esm.js"></script>
+  <script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@latest/dist/ionic/ionic.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body>
+  <ion-app>
+    <!-- Menú lateral para navegación -->
+    <ion-menu menuId="lateral-menu" contentId="main-content" type="overlay">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Navegación</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-list>
+                <!-- Categoría: Paises -->
+                <ion-item-divider>
+                    <ion-label color="secondary" class="menu-title">🌍 Países</ion-label>
+                </ion-item-divider>
+                <ion-item button id="btnMenuObtainCountries">
+                    <ion-icon slot="start" name="earth-outline"></ion-icon>
+                    <ion-label>Mapa usuarios</ion-label>
+                </ion-item>
+
+                <!-- Categoría: Registros -->
+                <ion-item-divider>
+                    <ion-label color="secondary" class="menu-title">📄 Registros</ion-label>
+                </ion-item-divider>
+                <ion-item button id="btnMenuObtainRecord">
+                    <ion-icon slot="start" name="list-outline"></ion-icon>
+                    <ion-label>Todos los registros</ion-label>
+                </ion-item>
+                <ion-item button id="btnMenuAddRecord">
+                    <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+                    <ion-label>Realizar registro</ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-menu>
+
+    <!-- Contenido principal -->
+    <ion-page class="ion-page">
+        <ion-header>
+            <ion-toolbar>
+                <!-- Botón que abre el menú lateral -->
+                <ion-buttons slot="start">
+                    <ion-button id="menuToggle" color="secondary">
+                        <ion-icon slot="icon-only" name="menu-outline"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+                <ion-title>Menú</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button id="btnMenuLogin">Login</ion-button>
+                    <ion-button id="btnMenuRegister">Register</ion-button>
+                    <ion-button id="btnLogout">Logout</ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+      
+        <ion-content id="main-content" class="ion-padding">
+            <!-- Sección de Login -->
+            <section id="startSection">
+                <ion-card>
+                    <ion-card-header>
+                    <ion-card-title class="title">Obligatorio<br>Taller de desarrollo para dispositivos móviles</ion-card-title>
+                    <ion-card-subtitle class="subtitle">Grupo M2.5C</ion-card-subtitle>
+                    </ion-card-header>
+                
+                    <ion-card-content>
+                    <div class="profile">
+                        <ion-img src="Media/Agustin.png.jpg"></ion-img>
+                        <p class="name">Agustín Butrico – 339579</p>
+                    </div>
+                
+                    <div class="profile">
+                        <ion-img src="Media/Valentin.png.jpg"></ion-img>
+                        <p class="name">Valentín Latorre – 339103</p>
+                    </div>
+                    <ion-card-subtitle class="professor">Profesor de la materia: Joaquin Rodriguez</ion-card-subtitle>
+                    </ion-card-content>
+                </ion-card>               
+            </section>
+
+            <!-- Sección de Login -->
+            <section id="loginSection">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>Inicio</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <form id="loginForm">
+                            <ion-item>
+                                <ion-label position="fixed">Usuario</ion-label>
+                                <ion-input type="text" id="login-user"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="fixed">Contraseña</ion-label>
+                                <ion-input type="password" id="login-password"></ion-input>
+                            </ion-item>
+                            <ion-button expand="block" type="button" id="btnLogin">Ingresar</ion-button>
+                        </form>
+                        <ion-item>
+                            <ion-text id="login-messageColor">
+                                <p id="login-message"></p>
+                            </ion-text>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </section>
+
+            <!-- Sección de Register -->
+            <section id="registerSection">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>Registro</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <form id="registerForm">
+                            <ion-item>
+                                <ion-label position="fixed">Usuario</ion-label>
+                                <ion-input type="text" id="register-user"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="fixed">Contraseña</ion-label>
+                                <ion-input type="password" id="register-password"></ion-input>
+                            </ion-item>
+                            <ion-item id="register-selectCountries"></ion-item>
+                            <ion-button expand="block" type="button" id="btnRegister">Registrarse</ion-button>
+                        </form>
+                        <ion-item>
+                            <ion-text id="register-messageColor">
+                                <p id="register-message"></p>
+                            </ion-text>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </section>
+
+            <!-- Sección de Add Record -->
+            <section id="addRecordSection">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>Registro de actividad</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <form id="addRecordForm">
+                            <ion-item id="addRecord-selectActivities"></ion-item>
+                            <ion-item>
+                                <ion-label position="fixed">Tiempo</ion-label>
+                                <ion-input type="number" id="addRecord-time" placeholder="en minutos"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="fixed">Fecha</ion-label>
+                                <ion-input type="Date" id="addRecord-date"></ion-input>
+                            </ion-item>
+                            <ion-button expand="block" type="button" id="btnAddRecord">Realizar registro</ion-button>
+                        </form>
+                        <ion-item>
+                            <ion-text id="addRecord-messageColor">
+                                <p id="addRecord-message"></p>
+                            </ion-text>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </section>
+
+            <!-- Sección de Obtain Record -->
+            <section id="obtainRecordSection">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-title>Registros del usuario</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <form id="obtainRecordForm">
+                            <ion-item>
+                                <ion-text>Minutos insumidos</ion-text>
+                                <ion-text id="obtainRecord-TimeAllRecords" slot="end"></ion-text>
+                            </ion-item>
+                            <ion-item>
+                                <ion-text>Minutos insumidos hoy</ion-text>
+                                <ion-text id="obtainRecord-TimeDayRecords" slot="end"></ion-text>
+                            </ion-item>
+                            <ion-item>
+                                <ion-select id="obtainRecord-dateFilter" value="0">
+                                    <ion-select-option value="0">Histórico</ion-select-option>
+                                    <ion-select-option value="1">Última semana</ion-select-option>
+                                    <ion-select-option value="2">Último mes</ion-select-option>
+                                </ion-select>
+                                <ion-button id="btnUpdateTableRecords" slot="end" fill="outline">Actualizar</ion-button>
+                            </ion-item>
+                            <ion-item>
+                                <div id="obtainRecord-tableRecords"></div>
+                            </ion-item>
+                        </form>
+                        <ion-item>
+                            <ion-text id="obtainRecord-messageColor">
+                                <p id="obtainRecord-message"></p>
+                            </ion-text>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </section>
+
+            <!-- Sección de Map -->
+            <section id="map" style="height: 600px; width: 100%;"></section>
+        </ion-content>
+    </ion-page>
+  </ion-app>
+  
+  <link rel="stylesheet" href="/Css/estilo.css">
+  <script src="/JS/codigo.js"></script>
+</body>
+</html>
